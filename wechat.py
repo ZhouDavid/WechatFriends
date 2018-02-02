@@ -1,4 +1,4 @@
-#encoding:utf-8
+# -*- coding: gbk -*-
 # import itchat
 
 
@@ -24,7 +24,7 @@
 # print("proportion:{},{},{}".format(p1,p2,p3))
 
 
-# é¦–å…ˆéœ€è¦å®‰è£…itchatç­‰åŒ…ï¼špip install itchat
+# Ê×ÏÈĞèÒª°²×°itchatµÈ°ü£ºpip install itchat
 import itchat  # itchat documentation -- https://itchat.readthedocs.io/zh/latest/api/
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -37,11 +37,11 @@ import jieba  # chinese word segementation tool
 from matplotlib.font_manager import FontProperties
 font = FontProperties(fname='DroidSansFallbackFull.ttf', size=14)  # load font
 
-# ç™»å½•è‡ªå·±çš„å¾®ä¿¡ã€‚è¿‡ç¨‹ä¸­ä¼šç”Ÿäº§ä¸€ä¸ªç™»å½•äºŒç»´ç ï¼Œæ‰«ç ä¹‹åå³å¯ç™»å½•ã€‚
+# µÇÂ¼×Ô¼ºµÄÎ¢ĞÅ¡£¹ı³ÌÖĞ»áÉú²úÒ»¸öµÇÂ¼¶şÎ¬Âë£¬É¨ÂëÖ®ºó¼´¿ÉµÇÂ¼¡£
 # login, default a QR code will be generated, scan for login
 itchat.auto_login(hotReload = True)
 
-# æŠŠè‡ªå·±å¥½å‹çš„ç›¸å…³ä¿¡æ¯çˆ¬ä¸‹æ¥
+# °Ñ×Ô¼ººÃÓÑµÄÏà¹ØĞÅÏ¢ÅÀÏÂÀ´
 friends = itchat.get_friends(update=True)[0:]  # get all friends
 
 # get male-female-ratio
@@ -50,8 +50,8 @@ def get_male_female_count(friends):
     female = 0
     others = 0
     for friend in friends:
-        # â€æ€§åˆ«â€œæ˜¯å­˜æ”¾åœ¨ä¸€ä¸ªå­—å…¸é‡Œé¢çš„ï¼Œkey æ˜¯â€Sexâ€œ
-        # ç”·æ€§å€¼ä¸º 1ï¼Œå¥³æ€§ä¸º 2ï¼Œå…¶ä»–æ˜¯ä¸æ˜æ€§åˆ«çš„ï¼ˆå°±æ˜¯æ²¡æœ‰å¡«çš„ï¼‰
+        # ¡±ĞÔ±ğ¡°ÊÇ´æ·ÅÔÚÒ»¸ö×ÖµäÀïÃæµÄ£¬key ÊÇ¡±Sex¡°
+        # ÄĞĞÔÖµÎª 1£¬Å®ĞÔÎª 2£¬ÆäËûÊÇ²»Ã÷ĞÔ±ğµÄ£¨¾ÍÊÇÃ»ÓĞÌîµÄ£©
         sex = friend['Sex']
         if sex == 1:
             male += 1
@@ -61,17 +61,18 @@ def get_male_female_count(friends):
             others += 1
     return male, female, others
 
-# friend[0]æ˜¯è‡ªå·±çš„ä¿¡æ¯ï¼Œæ‰€ä»¥ä»friend[1]å¼€å§‹
+# friend[0]ÊÇ×Ô¼ºµÄĞÅÏ¢£¬ËùÒÔ´Ófriend[1]¿ªÊ¼
 male, female, others = get_male_female_count(friends[1:])
 
-# å¾®ä¿¡å¥½å‹æ•°é‡
+# Î¢ĞÅºÃÓÑÊıÁ¿
 total = len(friends[1:])
-# æ‰“å°å‡ºå¥½å‹æ€§åˆ«æ¯”ä¾‹
-print('ç”·æ€§æ•°é‡: {:d}, ratio: {:.4f}'.format(male, male / float(total)))
-print('å¥³æ€§æ•°é‡: {:d}, ratio: {:.4f}'.format(female, female / float(total)))
-print('å…¶ä»–æ•°é‡: {:d}, ratio: {:.4f}'.format(others, others / float(total)))
+# ´òÓ¡³öºÃÓÑĞÔ±ğ±ÈÀı
+print('ÄĞĞÔÊıÁ¿: {:d}, ratio: {:.4f}'.format(male, male / float(total)))
+print('Å®ĞÔÊıÁ¿: {:d}, ratio: {:.4f}'.format(female, female / float(total)))
+print('ÆäËûÊıÁ¿: {:d}, ratio: {:.4f}'.format(others, others / float(total)))
+print('total: {:d}'.format(total))
 
-# æŠŠå¥½å‹æ€§åˆ«æ•°æ®ç”»æˆå›¾
+# °ÑºÃÓÑĞÔ±ğÊı¾İ»­³ÉÍ¼
 # plot male-female-ratio
 index = np.arange(3)
 genders = (male, female, others)
@@ -81,13 +82,13 @@ plt.bar(index, genders, bar_width, alpha=0.6, color='rgb')
 plt.xlabel('Gender', fontsize=16)  
 plt.ylabel('Population', fontsize=16)
 plt.title('Male-Female Population', fontsize=18)  
-plt.xticks(index, ('ç”·æ€§', 'å¥³æ€§', 'å…¶ä»–'), fontsize=14, rotation=20)
+plt.xticks(index, ('Male', 'Female', 'Other'), fontsize=14, rotation=20)
 plt.ylim(0,1000)
 for idx, gender in zip(index, genders):
     plt.text(idx, gender + 0.1, '%.0f' % gender, ha='center', va='bottom', fontsize=14, color='black')
 plt.show()
 
-# å°†æ•°æ®å¯¼å…¥åˆ°DataFrameï¼Œå¹¶ç­›é€‰å‡ºå¾®ä¿¡åã€å¤‡æ³¨åã€æ€§åˆ«ã€çœä»½ã€åŸå¸‚ã€ä¸ªæ€§ç­¾åäº”ä¸ªå­—æ®µ
+# ½«Êı¾İµ¼Èëµ½DataFrame£¬²¢É¸Ñ¡³öÎ¢ĞÅÃû¡¢±¸×¢Ãû¡¢ĞÔ±ğ¡¢Ê¡·İ¡¢³ÇÊĞ¡¢¸öĞÔÇ©ÃûÎå¸ö×Ö¶Î
 # extract the variables: NickName, Sex, City, Province, Signature
 def get_features(friends):
     features = []
@@ -101,8 +102,8 @@ def get_features(friends):
 features = get_features(friends[1:])
 
 
-# å¾®ä¿¡å¥½å‹åœ°åŸŸåˆ†å¸ƒåˆ†æ
-# æ ¹æ®çœä»½ã€åŸå¸‚è¿›è¡Œæ•°æ®çš„åˆ†ç»„å’Œèšåˆï¼Œé€‰æ‹©æ’åå‰äºŒåçš„
+# Î¢ĞÅºÃÓÑµØÓò·Ö²¼·ÖÎö
+# ¸ù¾İÊ¡·İ¡¢³ÇÊĞ½øĞĞÊı¾İµÄ·Ö×éºÍ¾ÛºÏ£¬Ñ¡ÔñÅÅÃûÇ°¶şÊ®µÄ
 locations = features.loc[:, ['Province', 'City']]  # get location columns
 locations = locations[locations['Province'] != '']  # clean empty city or province records
 data = locations.groupby(['Province', 'City']).size().unstack()  # group by and count
@@ -120,27 +121,27 @@ for label in legend_labels:
     label.set_fontproperties(font)
     label.set_fontsize(10)
 
-plt.xlabel('çœä»½', fontsize=20)
-plt.ylabel('æ•°é‡', fontsize=20)
+plt.xlabel('Province', fontsize=20)
+plt.ylabel('Number', fontsize=20)
 plt.show()
 
 sigature_list = []
 for signature in features['Signature']:
-    # å…ˆæ›¿æ¢æ‰emojiã€spanã€class ç­‰ç­‰è¿™äº›æ— å…³ç´§è¦çš„è¯
+    # ÏÈÌæ»»µôemoji¡¢span¡¢class µÈµÈÕâĞ©ÎŞ¹Ø½ôÒªµÄ´Ê
     signature = signature.strip().replace('span', '').replace('class', '').replace('emoji', '')
-    # è¿˜æœ‰ç±»ä¼¼<>/= ä¹‹ç±»çš„ç¬¦å·ï¼Œä¹Ÿéœ€è¦å†™ä¸ªç®€å•çš„æ­£åˆ™æ›¿æ¢æ‰
+    # »¹ÓĞÀàËÆ<>/= Ö®ÀàµÄ·ûºÅ£¬Ò²ĞèÒªĞ´¸ö¼òµ¥µÄÕıÔòÌæ»»µô
     # re.compile(ur'[^a-zA-Z0-9\u4e00-\u9fa5 ]').sub('', signature)
     signature = re.compile('1f\d+\w*|[<>/=]').sub('', signature)
     if (len(signature) > 0):
         sigature_list.append(signature)
-# å†æŠŠæ‰€æœ‰æ‹¼èµ·æ¥ï¼Œå¾—åˆ° text å­—ä¸²
-text = ''.join(sigature_list)
-# print(text)
+# ÔÙ°ÑËùÓĞÆ´ÆğÀ´£¬µÃµ½ text ×Ö´®
+text = "".join(sigature_list)
+
 
 wordlist = jieba.cut(text, cut_all=True)
 words = "".join(wordlist)
 
-# å¾®ä¿¡å¥½å‹ä¸ªæ€§ç­¾åçš„è¯äº‘ç»Ÿè®¡
+# Î¢ĞÅºÃÓÑ¸öĞÔÇ©ÃûµÄ´ÊÔÆÍ³¼Æ
 coloring = np.array(Image.open('avatar.jpg'))
 wc = WordCloud(background_color='white', max_words=2000, mask=coloring, max_font_size=60, random_state=42, 
                font_path='DroidSansFallbackFull.ttf', scale=2).generate(words)
