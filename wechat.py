@@ -135,11 +135,11 @@ for signature in features['Signature']:
     if (len(signature) > 0):
         sigature_list.append(signature)
 # 再把所有拼起来，得到 text 字串
-text = "".join(sigature_list)
+text = " ".join(sigature_list)
 
 
 wordlist = jieba.cut(text, cut_all=True)
-words = "".join(wordlist)
+words = " ".join(wordlist)
 
 # 微信好友个性签名的词云统计
 coloring = np.array(Image.open('avatar.jpg'))
@@ -147,7 +147,7 @@ wc = WordCloud(background_color='white', max_words=2000, mask=coloring, max_font
                font_path='DroidSansFallbackFull.ttf', scale=2).generate(words)
 image_color = ImageColorGenerator(coloring)
 plt.figure(figsize=(32, 16))
-plt.imshow(wc.recolor(color_func=image_color))
+# plt.imshow(wc.recolor(color_func=image_color))
 plt.imshow(wc)
 plt.axis('off')
 plt.show()
